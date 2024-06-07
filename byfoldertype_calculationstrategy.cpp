@@ -12,7 +12,6 @@ void ByFolderType_CalculationStrategy::SomeCalculationMethod(QDir start_director
         it.next();
         QFileInfo inf = it.fileInfo();
         QString flpath = inf.filePath();
-        qDebug() << flpath.right(1);
         if (!inf.isFile() && flpath.right(1) != "."){
             qint64 foldersize = CalculateFolderWeigth(QDir(it.filePath()));
             map[flpath] = foldersize;
@@ -28,8 +27,11 @@ void ByFolderType_CalculationStrategy::SomeCalculationMethod(QDir start_director
         while (iter.hasNext())
         {
             iter.next();
-            float current_percent = ((map[iter.key()] / absolute_size)< 0.01)?0.01 :(map[iter.key()] / absolute_size);
-            percent[iter.key()] = current_percent;
+            qDebug() << (float(map[iter.key()]) / absolute_size);
+            if (map[iter.key()] == 0)
+                percent[iter.key()] = 0;
+            else
+                percent[iter.key()] = ((float(map[iter.key()]) / absolute_size)*100 < 0.01)?0.01 :(float(map[iter.key()])*100 / absolute_size);
         }
     }
     else

@@ -37,8 +37,11 @@ void ByFileType_CalculationStrategy::SomeCalculationMethod(QDir start_directory)
         while (iter.hasNext())
         {
             iter.next();
-            float current_percent = ((map[iter.key()] / absolute_size)< 0.01)?0.01 :(map[iter.key()] / absolute_size);
-            percent[iter.key()] = current_percent;
+            qDebug() << (float(map[iter.key()]) / absolute_size);
+            if (map[iter.key()] == 0)
+                percent[iter.key()] = 0;
+            else
+                percent[iter.key()] = ((float(map[iter.key()]) / absolute_size)*100 < 0.01)?0.01 :(float(map[iter.key()])*100 / absolute_size);
         }
     }
     else
