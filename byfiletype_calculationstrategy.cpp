@@ -3,6 +3,7 @@
 void ByFileType_CalculationStrategy::SomeCalculationMethod(QDir start_directory)
 {
     map.clear();
+    unsigned int absolute_size = 0;
     QDirIterator it(start_directory, QDirIterator::Subdirectories);
     while (it.hasNext())
     {
@@ -24,7 +25,28 @@ void ByFileType_CalculationStrategy::SomeCalculationMethod(QDir start_directory)
             {
                 format = "no format";
             }
-            (map[format]) += inf.size();
+            qint64 size = inf.size();
+            (map[format]) += size;
+            absolute_size += size;
+        }
+    }
+
+    QMapIterator<QString, unsigned int> iter(map);
+    if (absolute_size != 0)
+    {
+        while (iter.hasNext())
+        {
+            iter.next();
+            float current_percent = ((map[iter.key()] / absolute_size)< 0.01)?0.01 :(map[iter.key()] / absolute_size);
+            percent[iter.key()] = current_percent;
+        }
+    }
+    else
+    {
+        while (iter.hasNext())
+        {
+            iter.next();
+            percent[iter.key()] = 0;
         }
     }
 }

@@ -9,9 +9,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    byfiletype_calculationstrategy.cpp \
+    byfoldertype_calculationstrategy.cpp \
     main.cpp
 
-HEADERS +=
+HEADERS += \
+    byfiletype_calculationstrategy.h \
+    byfoldertype_calculationstrategy.h \
+    calculationstrategy.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
