@@ -4,11 +4,11 @@ Content::Content(CalculationStrategy::STRATEGY flag)
 {
     if (flag == CalculationStrategy::BYFILETYPE)
     {
-        strategy = new ByFolderType_CalculationStrategy();
+        strategy = new ByFileType_CalculationStrategy();
     }
     else
     {
-        strategy = new ByFileType_CalculationStrategy();
+        strategy = new ByFolderType_CalculationStrategy();
     }
 }
 
@@ -36,10 +36,9 @@ void Content::test1(QString path)
 void Content::test2(QString path)
 {
     QDir dir(path + "folder with only files");
-    ByFolderType_CalculationStrategy strat;
-    strat.SomeCalculationMethod(dir);
-    const QMap<QString, unsigned int> &map = strat.get_map();
-    const QMap<QString, float> &percent = strat.get_percent();
+    strategy->SomeCalculationMethod(dir);
+    const QMap<QString, unsigned int> &map = strategy->get_map();
+    const QMap<QString, float> &percent = strategy->get_percent();
     QMapIterator<QString, unsigned int> iter(map);
 
     while (iter.hasNext())
@@ -52,11 +51,10 @@ void Content::test2(QString path)
 
 void Content::test3(QString path)
 {
-    QDir dir(path + "folder with only files");
-    ByFolderType_CalculationStrategy strat;
-    strat.SomeCalculationMethod(dir);
-    const QMap<QString, unsigned int> &map = strat.get_map();
-    const QMap<QString, float> &percent = strat.get_percent();
+    QDir dir(path + "folder with only folders");
+    strategy->SomeCalculationMethod(dir);
+    const QMap<QString, unsigned int> &map = strategy->get_map();
+    const QMap<QString, float> &percent = strategy->get_percent();
     QMapIterator<QString, unsigned int> iter(map);
 
     while (iter.hasNext())
@@ -70,10 +68,9 @@ void Content::test3(QString path)
 void Content::example(QString path)
 {
     QDir dir(path + "folder");
-    ByFolderType_CalculationStrategy strat;
-    strat.SomeCalculationMethod(dir);
-    const QMap<QString, unsigned int> &map = strat.get_map();
-    const QMap<QString, float> &percent = strat.get_percent();
+    strategy->SomeCalculationMethod(dir);
+    const QMap<QString, unsigned int> &map = strategy->get_map();
+    const QMap<QString, float> &percent = strategy->get_percent();
     QMapIterator<QString, unsigned int> iter(map);
 
     while (iter.hasNext())

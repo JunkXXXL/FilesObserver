@@ -5,7 +5,9 @@ void ByFolderType_CalculationStrategy::SomeCalculationMethod(QDir start_director
     map.clear();
     unsigned int absolute_size = 0;
     QDirIterator it(start_directory, QDirIterator::NoIteratorFlags);
-    map[start_directory.absolutePath()] = CalculateCurrentFolder(start_directory);
+    qint64 currentfoldersize = CalculateCurrentFolder(start_directory);
+    map[start_directory.absolutePath()] = currentfoldersize;
+    absolute_size += currentfoldersize;
 
     while(it.hasNext())
     {
@@ -27,7 +29,6 @@ void ByFolderType_CalculationStrategy::SomeCalculationMethod(QDir start_director
         while (iter.hasNext())
         {
             iter.next();
-            qDebug() << (float(map[iter.key()]) / absolute_size);
             if (map[iter.key()] == 0)
                 percent[iter.key()] = 0;
             else
