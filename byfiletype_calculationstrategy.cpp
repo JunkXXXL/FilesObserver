@@ -1,9 +1,8 @@
 #include "byfiletype_calculationstrategy.h"
 
-void ByFileType_CalculationStrategy::SomeCalculationMethod(QDir start_directory)
+QMap<QString, qint64>* ByFileType_CalculationStrategy::SomeCalculationMethod(QDir start_directory)
 {
-    map.clear();
-    unsigned int absolute_size = 0;
+    QMap<QString, qint64>* map = new QMap<QString, qint64>();
     QDirIterator it(start_directory, QDirIterator::Subdirectories);
     while (it.hasNext())
     {
@@ -26,29 +25,8 @@ void ByFileType_CalculationStrategy::SomeCalculationMethod(QDir start_directory)
                 format = "no format";
             }
             qint64 size = inf.size();
-            (map[format]) += size;
-            absolute_size += size;
+            (*map)[format] += size;
         }
     }
-
-    QMapIterator<QString, unsigned int> iter(map);
-    if (absolute_size != 0)
-    {
-        while (iter.hasNext())
-        {
-            iter.next();
-            if (map[iter.key()] == 0)
-                percent[iter.key()] = 0;
-            else
-                percent[iter.key()] = ((float(map[iter.key()]) / absolute_size)*100 < 0.01)?0.01 :(float(map[iter.key()])*100 / absolute_size);
-        }
-    }
-    else
-    {
-        while (iter.hasNext())
-        {
-            iter.next();
-            percent[iter.key()] = 0;
-        }
-    }
+    return map;
 }
