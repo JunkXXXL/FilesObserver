@@ -4,17 +4,24 @@
 #include "byfiletype_calculationstrategy.h"
 #include "byfoldertype_calculationstrategy.h"
 
-class Content
+
+enum class STRATEGY{
+    BYFOLDER=0,
+    BYFILETYPE
+};
+
+class Context
 {
 public:
-    explicit Content(CalculationStrategy::STRATEGY flag);
-    ~Content();
+    explicit Context(STRATEGY flag);
+    ~Context();
     void test1(QString path);
     void test2(QString path);
     void test3(QString path);
     void example(QString path);
 
 private:
+    qint64 getSizeMap(QMap<QString, qint64>* map);
     CalculationStrategy *strategy;
 };
 

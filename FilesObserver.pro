@@ -11,14 +11,14 @@ CONFIG += c++17
 SOURCES += \
     byfiletype_calculationstrategy.cpp \
     byfoldertype_calculationstrategy.cpp \
-    content.cpp \
+    context.cpp \
     main.cpp
 
 HEADERS += \
     byfiletype_calculationstrategy.h \
     byfoldertype_calculationstrategy.h \
     calculationstrategy.h \
-    content.h
+    context.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
