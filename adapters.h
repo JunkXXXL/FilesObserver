@@ -39,6 +39,9 @@ public:
         return to_ret;
     }
 
+
+
+
 private:
     qint64 getSizeMap(QMap<QString, qint64>* map)
     {

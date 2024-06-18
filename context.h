@@ -16,7 +16,7 @@ public:
     float percent;
 };
 
-enum class STRATEGY{
+enum STRATEGY{
     BYFOLDER=0,
     BYFILETYPE
 };

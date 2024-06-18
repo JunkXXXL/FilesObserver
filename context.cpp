@@ -36,3 +36,16 @@ qint64 Context::getSizeMap(QMap<QString, qint64>* map)
     }
     return folderSize;
 }
+
+void Context::setNewStrategy(STRATEGY flag)
+{
+    delete strategy;
+    if (flag == STRATEGY::BYFILETYPE)
+    {
+        strategy = new ByFileType_CalculationStrategy();
+    }
+    else
+    {
+        strategy = new ByFolderType_CalculationStrategy();
+    }
+}

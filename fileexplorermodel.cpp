@@ -1,11 +1,26 @@
 #include "fileexplorermodel.h"
 #include <cmath>
 
-FileExplorerModel::FileExplorerModel(QObject *parent, QList<StrategyInfo> dt) :
+FileExplorerModel::FileExplorerModel(QObject *parent) :
     QAbstractTableModel(parent)
 {
-    dataModel = dt;
+    //selfadapter = adap;
+    //path = "D://C++";
+    //dataModel = selfadapter->request(path);
 }
+
+void FileExplorerModel::update(QMap<QString, qint64>* newModel)
+{
+    dataModel = *newModel;
+    emit layoutChanged();
+   // dataModel = selfadapter->request(path);
+}
+
+void FileExplorerModel::setRootPath(QString str)
+{
+    //path = str;
+}
+
 //Возвращаем количество строк, в зависимости от количества данных в списке
 int FileExplorerModel::rowCount(const QModelIndex &parent) const
 {
@@ -46,10 +61,15 @@ QVariant FileExplorerModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
     if (index.column() == 0) {
-        return dataModel[index.row()].name;
+        return dataModel.keys().at(index.row());
     } else if (index.column() == 1) {
-        return dataModel[index.row()].size;
+        return  dataModel.values().at(index.row());
     } else if (index.column() == 2) {
-        return round(dataModel[index.row()].percent*1000000)/1000000 * 100;
+        return round(dataModel.values().at(index.row())*1000000)/1000000 * 100;
     }
+}
+
+FileExplorerModel::~FileExplorerModel()
+{
+
 }
