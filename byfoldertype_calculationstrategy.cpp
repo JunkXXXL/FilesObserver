@@ -5,13 +5,13 @@ QMap<QString, qint64>* ByFolderType_CalculationStrategy::SomeCalculationMethod(Q
     QMap<QString, qint64>* map = new QMap<QString, qint64>();
     QDirIterator it(start_directory, QDirIterator::NoIteratorFlags);
     qint64 currentfoldersize = CalculateCurrentFolder(start_directory);
-    (*map)[start_directory.absolutePath()] = currentfoldersize;
+    (*map)[start_directory.dirName()] = currentfoldersize;
 
     while(it.hasNext())
     {
         it.next();
         QFileInfo inf = it.fileInfo();
-        QString flpath = inf.filePath();
+        QString flpath = QDir(inf.filePath()).dirName();
         if (!inf.isFile() && flpath.right(1) != "."){
             qint64 foldersize = CalculateFolderWeigth(QDir(it.filePath()));
             (*map)[flpath] = foldersize;
