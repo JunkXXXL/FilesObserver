@@ -1,0 +1,14 @@
+#ifndef FILEEXPLORERMODEL_H
+#define FILEEXPLORERMODEL_H
+#include <QFileSystemModel>
+
+class FileExplorerModel: public QFileSystemModel
+{
+public:
+    FileExplorerModel(QObject *parent = nullptr): QFileSystemModel(parent) {}
+    ~FileExplorerModel();
+    
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override
+};
+
+#endif // FILEEXPLORERMODEL_H

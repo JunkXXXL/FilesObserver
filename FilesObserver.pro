@@ -9,12 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    mainwindow.cpp \
+    fileexplorermodel.cpp \
     byfiletype_calculationstrategy.cpp \
     byfoldertype_calculationstrategy.cpp \
     context.cpp \
     main.cpp
 
 HEADERS += \
+    mainwindow.h \
+    fileexplorermodel.h \
     byfiletype_calculationstrategy.h \
     byfoldertype_calculationstrategy.h \
     calculationstrategy.h \

@@ -7,14 +7,19 @@
 #include "QApplication"
 #include "QListView"
 #include "QLabel"
+#include "mainwindow.h"
 
 int main(int argc, char *argv[]) {
     Context content(STRATEGY::BYFOLDER);
     QString dir = "D:/FilesObserver/";
-    content.example(dir);
+    //content.example(dir);
     //content.test1(dir); // empty folder
     //content.test2(dir); //folder with files
     //content.test3(dir); //folder with folders
 
-    return 0;
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+    return a.exec();
 }
