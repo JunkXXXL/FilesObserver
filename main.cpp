@@ -1,15 +1,14 @@
-#include "qdiriterator.h"
 #include "QDebug"
 #include "context.h"
-#include "calculationstrategy.h"
 #include "QFileSystemModel"
 #include "QTreeView"
 #include "QApplication"
 #include "QListView"
 #include "QLabel"
 #include "mainwindow.h"
-#include "fileexplorermodel.h""
+#include "fileexplorermodel.h"
 #include "QTableView"
+#include "adapters.h"
 
 int main1(int argc, char *argv[]) {
     Context content(STRATEGY::BYFOLDER);
@@ -30,19 +29,18 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     //Создаем модельные данные и заполняем их
-    QList<SomeData> someDataModel;
-    someDataModel.append(SomeData("*.pdf", "3021", "%?"));
-    someDataModel.append(SomeData("*.doc", "5060", "%?"));
-    someDataModel.append(SomeData("*.txt", "4500", "%?"));
-    someDataModel.append(SomeData("*.exe", "23784", "%?"));
-    someDataModel.append(SomeData("others", "3045", "%?"));
+    Context *cont = new Context(STRATEGY::BYFILETYPE);
+    Adapter adapter(cont);
+    QList<StrategyInfo>* someDataModel = adapter.request("D://ANDwork//");
     //Создаем модель
-    QAbstractItemModel *tablemodel = new FileExplorerModel(nullptr, someDataModel);
+    QAbstractItemModel *tablemodel = new FileExplorerModel(nullptr, *someDataModel);
     //Создаем представление QTableView
     QTableView *tableView = new QTableView;
     //Устанавливаем модель в представление
     tableView->setModel(tablemodel);
     //Показываем представление
     tableView->show();
+
+    delete cont;
     return app.exec();
 }

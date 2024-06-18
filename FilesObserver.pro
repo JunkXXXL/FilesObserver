@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
+    adapters.h \
     mainwindow.h \
     fileexplorermodel.h \
     byfiletype_calculationstrategy.h \

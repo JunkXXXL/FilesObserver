@@ -19,25 +19,9 @@ Context::~Context()
 
 QMap<QString, qint64>* Context::useStrategy(QString path)
 {
-
+    QMap<QString, qint64>* map = strategy->SomeCalculationMethod(path);
+    return map;
 }
-
-//void Context::test1(QString path)
-//{
-//    QDir dir(path + "empty folder");
-//    strategy->SomeCalculationMethod(dir);
-//    QMap<QString, qint64> *map = strategy->SomeCalculationMethod(dir);
-//    QMapIterator<QString, qint64> iter(*map);
-//    qint64 mapSize = getSizeMap(map);
-
-//    while (iter.hasNext())
-//    {
-//        iter.next();
-//        QString key = iter.key();
-//        qDebug() << key << ": " << iter.value();
-//    }
-//    delete map;
-//}
 
 
 qint64 Context::getSizeMap(QMap<QString, qint64>* map)

@@ -1,6 +1,7 @@
 #include "fileexplorermodel.h"
+#include <cmath>
 
-FileExplorerModel::FileExplorerModel(QObject *parent, QList<SomeData> dt) :
+FileExplorerModel::FileExplorerModel(QObject *parent, QList<StrategyInfo> dt) :
     QAbstractTableModel(parent)
 {
     dataModel = dt;
@@ -18,8 +19,7 @@ int FileExplorerModel::columnCount(const QModelIndex &parent) const
     return PERCENT + 1;
 }
 //Возвращаем названия заголовков. Обратите внимание на тип возвращаемого значения.
-QVariant FileExplorerModel::headerData(int section, Qt::Orientation orientation, int
-                                                                                        role) const
+QVariant FileExplorerModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) {
         return QVariant();
@@ -41,8 +41,7 @@ QVariant FileExplorerModel::headerData(int section, Qt::Orientation orientation,
 QVariant FileExplorerModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() ||
-        dataModel.count() <= index.row() || (role != Qt::DisplayRole && role !=
-                                                                            Qt::EditRole))
+        dataModel.count() <= index.row() || (role != Qt::DisplayRole && role != Qt::EditRole))
     {
         return QVariant();
     }
@@ -51,6 +50,7 @@ QVariant FileExplorerModel::data(const QModelIndex &index, int role) const
     } else if (index.column() == 1) {
         return dataModel[index.row()].size;
     } else if (index.column() == 2) {
-        return dataModel[index.row()].percent;
+        qDebug() << dataModel[index.row()].percent;
+        return round(dataModel[index.row()].percent*1000000)/1000000 * 100;
     }
 }

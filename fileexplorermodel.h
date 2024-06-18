@@ -2,25 +2,13 @@
 #define FILEEXPLORERMODEL_H
 #include <QFileSystemModel>
 #include <QAbstractTableModel>
-
-class SomeData
-{
-public:
-    SomeData(QString nm = "SomeName", QString sz = "SomeSize", QString pr = "SomePercent")
-    {
-        name = nm;
-        size = sz;
-        percent = pr;
-    }
-
-    QString name, size, percent;
-};
+#include "context.h"
 
 class FileExplorerModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    FileExplorerModel(QObject *parent = nullptr, QList<SomeData> dt =QList<SomeData>());
+    FileExplorerModel(QObject *parent = nullptr, QList<StrategyInfo> dt =QList<StrategyInfo>());
     //Минимальный и обязательный набор необходимых методов
     //Так как нам требуется только отображать данные, то этого набора достаточно
     int rowCount(const QModelIndex &parent) const;
@@ -35,7 +23,7 @@ private:
         PERCENT
     };
     //Представим данные модели в виде списка.
-    QList<SomeData> dataModel;
+    QList<StrategyInfo> dataModel;
 };
 
 #endif // FILEEXPLORERMODEL_H
