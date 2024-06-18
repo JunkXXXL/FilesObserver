@@ -22,8 +22,7 @@ public:
     Widget(QWidget *parent = 0);
     ~Widget();
 private:
-    FileExplorerModel *fileModel;
-	QFileSystemModel *dirModel;
+    QFileSystemModel *dirModel;
 	QTreeView *treeView;
 	QTableView *tableView;
     QComboBox *strategyBox;

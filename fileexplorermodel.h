@@ -18,15 +18,11 @@ public:
     void update(QMap<QString, qint64>* newModel);
 
 private:
-    //Определим перечисление NameColumn для индексации столбцов нашей таблицы.
     enum NameColumn {
         NAME = 0,
         SIZE,
         PERCENT
     };
-   // QString path;
-   // Adapter* selfadapter;
-    //Представим данные модели в виде списка.
     qint64 calculateMaxSize() const;
     QMap<QString, qint64> dataModel;
     qint64 maxSize;
