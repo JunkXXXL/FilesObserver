@@ -15,10 +15,8 @@ class Context
 public:
     explicit Context(STRATEGY flag);
     ~Context();
-    void test1(QString path);
-    void test2(QString path);
-    void test3(QString path);
-    void example(QString path);
+    void setNewStrategy(STRATEGY flag);
+    QMap<QString, qint64>* useStrategy(QString path);
 
 private:
     qint64 getSizeMap(QMap<QString, qint64>* map);
