@@ -4,21 +4,28 @@
 FileExplorerModel::FileExplorerModel(QObject *parent) :
     QAbstractTableModel(parent)
 {
-    //selfadapter = adap;
-    //path = "D://C++";
-    //dataModel = selfadapter->request(path);
+
+}
+
+qint64 FileExplorerModel::calculateMaxSize() const
+{
+    qint64 to_ret = 0;
+    QMapIterator<QString, qint64> it(dataModel);
+
+    while (it.hasNext())
+    {
+        it.next();
+        QString key = it.key();
+        to_ret += dataModel[key];
+    }
+    return to_ret;
 }
 
 void FileExplorerModel::update(QMap<QString, qint64>* newModel)
 {
     dataModel = *newModel;
+    maxSize = calculateMaxSize();
     emit layoutChanged();
-   // dataModel = selfadapter->request(path);
-}
-
-void FileExplorerModel::setRootPath(QString str)
-{
-    //path = str;
 }
 
 //Возвращаем количество строк, в зависимости от количества данных в списке
@@ -65,7 +72,7 @@ QVariant FileExplorerModel::data(const QModelIndex &index, int role) const
     } else if (index.column() == 1) {
         return  dataModel.values().at(index.row());
     } else if (index.column() == 2) {
-        return round(dataModel.values().at(index.row())*1000000)/1000000 * 100;
+        return round((float(dataModel.values().at(index.row()))/float(maxSize))*1000000)/1000000;
     }
 }
 

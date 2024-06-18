@@ -2,7 +2,6 @@
 #define FILEEXPLORERMODEL_H
 #include <QFileSystemModel>
 #include <QAbstractTableModel>
-#include "adapters.h"
 #include <QMap>
 
 class FileExplorerModel : public QAbstractTableModel
@@ -11,13 +10,11 @@ class FileExplorerModel : public QAbstractTableModel
 public:
     FileExplorerModel(QObject *parent = nullptr);
     ~FileExplorerModel();
-    //Минимальный и обязательный набор необходимых методов
-    //Так как нам требуется только отображать данные, то этого набора достаточно
+
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    void setRootPath(QString str);
     void update(QMap<QString, qint64>* newModel);
 
 private:
@@ -30,7 +27,9 @@ private:
    // QString path;
    // Adapter* selfadapter;
     //Представим данные модели в виде списка.
+    qint64 calculateMaxSize() const;
     QMap<QString, qint64> dataModel;
+    qint64 maxSize;
 };
 
 #endif // FILEEXPLORERMODEL_H
