@@ -50,7 +50,6 @@ QVariant FileExplorerModel::data(const QModelIndex &index, int role) const
     } else if (index.column() == 1) {
         return dataModel[index.row()].size;
     } else if (index.column() == 2) {
-        qDebug() << dataModel[index.row()].percent;
         return round(dataModel[index.row()].percent*1000000)/1000000 * 100;
     }
 }

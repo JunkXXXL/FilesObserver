@@ -10,7 +10,7 @@
 #include "QTableView"
 #include "adapters.h"
 
-int main1(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
     Context content(STRATEGY::BYFOLDER);
     QString dir = "D:/FilesObserver/";
     //content.example(dir);
@@ -25,11 +25,11 @@ int main1(int argc, char *argv[]) {
     return a.exec();
 }
 
-int main(int argc, char *argv[])
+int main1(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     //Создаем модельные данные и заполняем их
-    Context *cont = new Context(STRATEGY::BYFILETYPE);
+    Context *cont = new Context(STRATEGY::BYFOLDER);
     Adapter adapter(cont);
     QList<StrategyInfo>* someDataModel = adapter.request("D://ANDwork//");
     //Создаем модель

@@ -6,6 +6,7 @@
 #include <QFileSystemModel>
 #include <QTreeView>
 #include <QTableView>
+#include "fileexplorermodel.h"
 
 class MainWindow : public QMainWindow
 {
@@ -18,7 +19,7 @@ public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
 private:
-	QFileSystemModel *fileModel;
+    QAbstractItemModel *fileModel;
 	QFileSystemModel *dirModel;
 	QTreeView *treeView;
 	QTableView *tableView;

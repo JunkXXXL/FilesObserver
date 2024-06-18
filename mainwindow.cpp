@@ -10,6 +10,7 @@
 #include <QHeaderView>
 #include <QStatusBar>
 #include <QDebug>
+#include "adapters.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: //QWidget(parent)
@@ -25,10 +26,15 @@ MainWindow::MainWindow(QWidget *parent)
 	dirModel->setFilter(QDir::NoDotAndDotDot | QDir::AllDirs);
 	dirModel->setRootPath(homePath);
 
-	fileModel = new QFileSystemModel(this);
-	fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);
 
-	fileModel->setRootPath(homePath);
+    Context *cont = new Context(STRATEGY::BYFOLDER);
+    Adapter adapter(cont);
+    QList<StrategyInfo>* someDataModel = adapter.request("D://ANDwork//");
+
+    fileModel = new FileExplorerModel(this, *someDataModel);//QFileSystemModel(this);
+    //fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);
+
+    //fileModel->setRootPath(homePath);
 	//Показать как дерево, пользуясь готовым видом:
 
 	treeView = new QTreeView();
@@ -129,7 +135,7 @@ void MainWindow::on_selectionChangedSlot(const QItemSelection &selected, const Q
 	}
 
 	treeView->header()->resizeSection(index.column(), length + dirModel->fileName(index).length());
-	tableView->setRootIndex(fileModel->setRootPath(filePath));
+    //tableView->setRootIndex(fileModel->setRootPath(filePath));
 }
 
 MainWindow::~MainWindow()
