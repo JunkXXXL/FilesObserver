@@ -28,6 +28,7 @@ private:
     QComboBox *strategyBox;
     Context* cont;
     FileExplorerModel* tableModel;
+    CalculationStrategy* calculationStrategy;
 
 };
 

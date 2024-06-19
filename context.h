@@ -13,9 +13,9 @@ enum STRATEGY{
 class Context
 {
 public:
-    explicit Context(STRATEGY flag);
+    explicit Context(CalculationStrategy* strt);
     ~Context();
-    void setNewStrategy(STRATEGY flag);
+    void setNewStrategy(CalculationStrategy* strt);
     QMap<QString, qint64>* useStrategy(QString path);
 
 private:

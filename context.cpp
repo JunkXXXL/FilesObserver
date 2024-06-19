@@ -1,20 +1,12 @@
 #include "context.h"
 
-Context::Context(STRATEGY flag)
+Context::Context(CalculationStrategy* strt)
 {
-    if (flag == STRATEGY::BYFILETYPE)
-    {
-        strategy = new ByFileType_CalculationStrategy();
-    }
-    else
-    {
-        strategy = new ByFolderType_CalculationStrategy();
-    }
+    strategy = strt;
 }
 
 Context::~Context()
 {
-    delete strategy;
 }
 
 QMap<QString, qint64>* Context::useStrategy(QString path)
@@ -37,15 +29,7 @@ qint64 Context::getSizeMap(QMap<QString, qint64>* map)
     return folderSize;
 }
 
-void Context::setNewStrategy(STRATEGY flag)
+void Context::setNewStrategy(CalculationStrategy* strt)
 {
-    delete strategy;
-    if (flag == STRATEGY::BYFILETYPE)
-    {
-        strategy = new ByFileType_CalculationStrategy();
-    }
-    else
-    {
-        strategy = new ByFolderType_CalculationStrategy();
-    }
+    strategy = strt;
 }

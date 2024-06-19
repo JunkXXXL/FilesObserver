@@ -46,7 +46,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     vBox->addLayout(hbox1);
     vBox->addLayout(hbox2);
 
-    cont = new Context(STRATEGY::BYFOLDER);
+    calculationStrategy = new ByFolderType_CalculationStrategy();
+
+    cont = new Context(calculationStrategy);
 
     connect(treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &Widget::on_selectionChangedSlot);
     connect(strategyBox, qOverload<int>(&QComboBox::currentIndexChanged), this, &Widget::setStrategy);
@@ -54,7 +56,15 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
 void Widget::setStrategy(int index)
 {
-    cont->setNewStrategy((STRATEGY)index);
+    if (index == 1)
+    {
+        calculationStrategy = new ByFileType_CalculationStrategy();
+    }
+    else
+    {
+        calculationStrategy = new ByFolderType_CalculationStrategy();
+    }
+    cont->setNewStrategy(calculationStrategy);
     on_selectionChangedSlot(QItemSelection(), QItemSelection());
 }
 
@@ -74,4 +84,5 @@ void Widget::on_selectionChangedSlot(const QItemSelection &selected, const QItem
 Widget::~Widget()
 {
     delete cont;
+    delete calculationStrategy;
 }
